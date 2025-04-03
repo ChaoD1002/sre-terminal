@@ -14,3 +14,6 @@ alias myip="curl ifconfig.me"
 alias dfh="df -h"
 alias mem="free -h"
 alias cpu="lscpu"
+
+# aliases 软链接修复
+alias link-aliases='ln -sf ~/sre-terminal/.aliases ~/.aliases && source ~/.aliases && echo "🔗 已链接并加载最新 aliases"'
