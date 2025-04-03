@@ -34,6 +34,22 @@ git clone https://github.com/zsh-users/zsh-autosuggestions   ${ZSH_CUSTOM:-$HOME
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git   ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 # 链接配置文件
-ln -sf "$(pwd)/.zshrc" ~/.zshrc
+echo "正在链接配置文件到本地home目录..."
+link_dotfile() {
+  local name="$1"
+  local src="$(pwd)/.$name"
+  local dest="$HOME/.$name"
+
+  if [ -e "$dest" ] && [ ! -L "$dest" ]; then
+    echo "📦 检测到 $dest 存在（非软链接），备份为 $dest.bak"
+    mv "$dest" "$dest.bak.$(date +%s)"
+  fi
+
+  ln -sf "$src" "$dest"
+  echo "✅ 已链接: $dest → $src"
+}
+for file in zshrc aliases functions p10k.zsh; do
+  link_dotfile "$file"
+done
 
 echo "✅ 安装完成！请运行：source ~/.zshrc 或重启终端"
