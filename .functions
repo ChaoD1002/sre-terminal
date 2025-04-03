@@ -1,35 +1,4 @@
-# 🌀 watch-aliases：监听 .aliases 文件变化并自动加载
-watch-aliases() {
-  echo "👀 正在监听 ~/.aliases 修改，保存时自动 reload。按 Ctrl+C 停止。"
-  while inotifywait -e modify ~/.aliases >/dev/null 2>&1; do
-    source ~/.aliases
-    echo "✅ .aliases 已重新加载！"
-  done
-}
-
-# 🛠 checkport：查看某端口是否被监听
-checkport() {
-  if [ -z "$1" ]; then
-    echo "用法: checkport 端口号"
-    return 1
-  fi
-  sudo lsof -i :$1
-}
-
-# 🛰 pingtest：连续 ping 常用站点
-pingtest() {
-  for host in 8.8.8.8 github.com google.com; do
-    echo "🌐 Ping $host:"
-    ping -c 2 $host
-    echo "------------------------"
-  done
-}
-
-# 🧠 reload-all：一次性 reload 所有配置
-reload-all() {
-  source ~/.aliases
-  [[ -f ~/.functions ]] && source ~/.functions
-  source ~/.zshrc
-  echo "✅ 所有配置已重载"
-}
-
+# 自动加载 .functions.d 中的所有函数文件
+for file in ~/sre-terminal/.functions.d/*.zsh; do
+  [ -f "$file" ] && source "$file"
+done
