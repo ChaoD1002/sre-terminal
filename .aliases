@@ -1,0 +1,14 @@
+# 🌀 快捷 Git 操作
+alias zsync='cd ~/sre-terminal && git pull && source ~/.zshrc && echo "✅ zsync 完成：配置已同步并重载"'
+alias zpush='cd ~/sre-terminal && git add . && git commit -m "update configs" && git push && echo "🚀 配置已提交！"'
+
+# 📦 Docker 简化
+alias dps="docker ps"
+alias dcu="docker-compose up -d"
+alias dcd="docker-compose down"
+
+# 🛠 系统信息
+alias myip="curl ifconfig.me"
+alias dfh="df -h"
+alias mem="free -h"
+alias cpu="lscpu"
