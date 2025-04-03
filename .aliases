@@ -1,6 +1,6 @@
 # 🌀 快捷 Git 操作
 alias zsync='cd ~/sre-terminal && git pull && source ~/.zshrc && echo "✅ zsync 完成：配置已同步并重载"'
-alias zpush='cd ~/sre-terminal && git add . && git commit -m "${1}" && git push && echo "🚀 配置已提交！"'
+alias zpush='cd ~/sre-terminal && git add . && git commit -m "${1:-update configs}" && git push && echo "🚀 配置已提交！"'
 
 alias sshgh='ssh -T git@github.com'
 
