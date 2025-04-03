@@ -54,4 +54,5 @@ export LC_ALL="en_US.UTF-8"
 export EDITOR=vim
 
 [[ -f ~/.aliases ]] && source ~/.aliases
+[[ -f ~/.functions ]] && source ~/.functions
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
