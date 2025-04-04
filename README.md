@@ -98,18 +98,6 @@ source ~/.zshrc
 
 若首次使用 Powerlevel10k，会自动启动配置向导。
 
-## 📦 快速安装
-
-克隆仓库并运行安装脚本：
-
-```bash
-git clone https://github.com/ChaoD1002/sre-terminal.git
-cd sre-terminal
-./install.sh            # 默认安装
-./install.sh reinstall  # 清理后重新安装
-./install.sh uninstall  # 卸载所有配置和软链
-```
-
 ---
 
 ## 📚 install.sh 支持功能
