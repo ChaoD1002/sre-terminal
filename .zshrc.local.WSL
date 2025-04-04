@@ -1,0 +1,13 @@
+# 💻 WSL 环境专用本地配置
+
+export IS_WSL=true                  # ✅ 标记当前是 WSL 平台（供函数/脚本判断）
+export EDITOR=nano                  # 默认编辑器为 nano（比 vim 更轻量）
+export BROWSER="explorer.exe"      # 使用 Windows 的浏览器打开链接
+
+alias openexplorer="explorer.exe ."  # 打开当前目录
+alias clip="clip.exe"                # 支持管道复制（echo xx | clip）
+
+# ✅ 加载 CLI 脚本目录（确保你写的 scripts/* 命令可用）
+export PATH="$HOME/sre-terminal/scripts:$PATH"
+
+echo "✅ 已加载 WSL 本地配置 (.zshrc.local)"

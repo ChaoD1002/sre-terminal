@@ -1,0 +1,13 @@
+# ✨ 示例：.zshrc.local 模板文件
+# 用于存放本地个性化配置，避免污染版本库
+# 请复制为 ~/.zshrc.local 并自行定制
+
+# 示例变量
+export EDITOR=nano
+export PATH="$HOME/sre-terminal/scripts:$PATH"
+
+# 示例 alias
+alias myip="curl ifconfig.me"
+
+# 标识加载
+echo "✅ .zshrc.local 已加载"

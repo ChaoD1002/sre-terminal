@@ -1,0 +1,11 @@
+# 🍎 macOS 专用本地配置
+
+export IS_MAC=true
+export EDITOR=vim
+export BROWSER="open"
+
+alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+
+export PATH="$HOME/sre-terminal/scripts:$PATH"
+
+echo "✅ 已加载 macOS 本地配置 (.zshrc.local)"

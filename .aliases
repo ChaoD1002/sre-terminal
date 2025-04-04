@@ -1,12 +1,36 @@
-alias sshgh='ssh -T git@github.com'
+# 🛡️ SSH / GitHub
+alias sshgh='ssh -T git@github.com'     # 测试 GitHub SSH 连接
 
-# 📦 Docker 简化
-alias dps="docker ps"
-alias dcu="docker-compose up -d"
-alias dcd="docker-compose down"
+# 🧹 常用操作
+alias cls='clear'                       # 清屏
+alias reload='source ~/.zshrc'          # 重新加载配置
+alias cdp='cd ~/projects'               # 快速进入项目目录
+alias cdg='cd ~/git'                    # 快速进入 git 目录
+alias venv='python3 -m venv venv && source venv/bin/activate'  # 创建并激活虚拟环境
 
-# 🛠 系统信息
-alias myip="curl ifconfig.me"
-alias dfh="df -h"
-alias mem="free -h"
-alias cpu="lscpu"
+# 🧰 Git 快捷命令（⚠️ 这些可能与函数 zpush 等功能重叠）
+alias gs='git status'
+alias ga='git add .'
+alias gc='git commit -m'                # 用法：gc "msg"
+alias gp='git push'
+alias gl='git log --oneline --graph --decorate'
+alias gd='git diff'
+
+# 🐳 Docker 常用命令
+alias dps='docker ps'
+alias dcu='docker-compose up -d'
+alias dcd='docker-compose down'
+alias dimg='docker images'
+alias drm='docker rm $(docker ps -aq)'              # 删除所有容器
+alias drmi='docker rmi $(docker images -q)'         # 删除所有镜像
+
+# 🧠 系统信息 / 网络
+alias myip='curl ifconfig.me'                       # 查看公网 IP
+alias ports='ss -tulnp'                             # 显示监听端口
+alias cpu='lscpu'                                   # 查看 CPU 信息
+alias mem='free -h'                                 # 查看内存
+alias dfh='df -h'                                   # 查看磁盘空间
+
+# 📄 日志调试
+alias srelog='tail -f /var/log/syslog | grep --color sre'    # 实时筛选 SRE 日志
+alias errlog='journalctl -p err -n 50'                       # 查看最近错误日志
