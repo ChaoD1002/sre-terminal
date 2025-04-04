@@ -15,10 +15,12 @@ for pkg in "${PKGS[@]}"; do
 done
 
 # locale 设置
+echo "🌐 配置 locale..."
 sudo locale-gen en_US.UTF-8
 sudo update-locale LANG=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+export LANG="en_US.UTF-8"
+export LANGUAGE="zh_CN:en_US"
+export LC_ALL="en_US.UTF-8"
 
 # 安装 oh-my-zsh
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
@@ -51,5 +53,30 @@ link_dotfile() {
 for file in zshrc aliases functions p10k.zsh; do
   link_dotfile "$file"
 done
+
+# 判断平台并生成本地配置文件
+if [[ -f "$(pwd)/.functions.d/platform.zsh" ]]; then
+  echo "🧠 正在识别系统平台..."
+  source "$(pwd)/.functions.d/platform.zsh"
+  detect_platform
+else
+  echo "⚠️ 找不到 platform.zsh，跳过平台标识符设置"
+fi
+
+if [[ ! -f "$HOME/.zshrc.local" ]]; then
+  echo "🛠 正在创建本地平台配置 (.zshrc.local)..."
+  if [[ "$IS_WSL" == true ]]; then
+    cp .zshrc.local.WSL ~/.zshrc.local
+    echo "✅ 已应用 WSL 配置模板"
+  elif [[ "$IS_MAC" == true ]]; then
+    cp .zshrc.local.mac ~/.zshrc.local
+    echo "✅ 已应用 macOS 配置模板"
+  else
+    cp .zshrc.local.example ~/.zshrc.local
+    echo "✅ 已应用默认通用配置模板"
+  fi
+else
+  echo "✅ 已存在 .zshrc.local，跳过生成"
+fi
 
 echo "✅ 安装完成！请运行：source ~/.zshrc 或重启终端"
