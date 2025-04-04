@@ -18,6 +18,85 @@
 | `scripts/` | 自定义 CLI 工具目录（可选） |
 
 ---
+## 🧰 平台环境安装提示
+
+为了确保 SRE Terminal 在不同操作系统下顺利运行，建议根据下方说明提前准备必要环境。
+
+---
+
+### 🪟 Windows（通过 WSL 安装 Ubuntu）
+
+1. 打开 PowerShell（管理员），启用 WSL 和虚拟机平台：
+
+   ```powershell
+   dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+   dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+   ```
+
+2. 安装 Ubuntu WSL（推荐从 Microsoft Store 获取）
+3. 设置用户名和密码
+4. 安装字体：下载并安装 [MesloLGS NF](https://github.com/romkatv/powerlevel10k#manual-font-installation)
+5. 安装 [Windows Terminal](https://aka.ms/terminal) 并配置使用 Ubuntu 作为默认 shell
+6. 运行安装脚本：
+
+   ```bash
+   git clone https://github.com/ChaoD1002/sre-terminal.git
+   cd sre-terminal && ./install.sh
+   ```
+
+---
+
+### 🍎 macOS
+
+1. 推荐使用 iTerm2（代替默认终端）
+2. 安装 [Homebrew](https://brew.sh)：
+
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+
+3. 安装依赖工具（自动安装也可）：
+
+   ```bash
+   brew install htop unzip z
+   ```
+
+4. 安装字体：MesloLGS NF（推荐配合 Powerlevel10k）
+5. 运行安装脚本：
+
+   ```bash
+   git clone https://github.com/ChaoD1002/sre-terminal.git
+   cd sre-terminal && ./install.sh
+   ```
+
+---
+
+### 🐧 Linux（原生）
+
+1. 支持的发行版：Ubuntu / Debian / Arch / Manjaro 等
+2. 确保可联网运行 `apt` 或其他包管理器
+3. 安装基本工具（安装脚本会自动完成）：
+
+   ```bash
+   sudo apt update && sudo apt install -y git curl zsh vim locales unzip htop docker.io
+   ```
+
+4. 运行安装脚本：
+
+   ```bash
+   git clone https://github.com/ChaoD1002/sre-terminal.git
+   cd sre-terminal && ./install.sh
+   ```
+
+---
+
+✅ 安装成功后，可执行：
+
+```bash
+source ~/.zshrc
+```
+
+若首次使用 Powerlevel10k，会自动启动配置向导。
 
 ## 📦 快速安装
 
@@ -95,7 +174,6 @@ alias统一定义在 `.aliases` 中。
 ## 📌 待办 / 拓展
 
 - [ ] 丰富 `scripts/` 中 CLI 工具集
-- [ ] 编写平台环境安装提示文档
 
 ---
 
