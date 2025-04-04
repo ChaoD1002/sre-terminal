@@ -1,0 +1,41 @@
+# 🚫 忽略本地个性化配置
+.zshrc.local
+
+# 📦 忽略本地缓存和历史
+*.swp
+*.bak
+*.log
+*.tmp
+*.DS_Store
+
+# 🔐 忽略私钥/密钥文件
+*.pem
+*.key
+*.crt
+*.p12
+id_rsa
+id_rsa.pub
+
+# 🧪 忽略 Git 操作缓存
+*.orig
+
+# 🧰 忽略常见 IDE 和编辑器目录
+.vscode/
+.idea/
+*.code-workspace
+
+# 🏗️ 忽略自动化脚本生成物
+*.zip
+
+# 🚀 特定于 dotfiles 项目的建议
+/home/chao/.functions.d/
+/home/chao/.aliases
+/home/chao/.functions
+/home/chao/.p10k.zsh
+/home/chao/.zshrc
+
+# ✅ 允许跟踪模板版本（可选）
+!.p10k.zsh
+!.functions
+!.aliases
+!.zshrc
