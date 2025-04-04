@@ -56,7 +56,6 @@ export EDITOR=vim
 [[ -f ~/.aliases ]] && source ~/.aliases
 [[ -f ~/.functions ]] && source ~/.functions
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 # 🚀 自动将 sre-terminal/scripts 加入 PATH
 if [ -d "$HOME/sre-terminal/scripts" ]; then
