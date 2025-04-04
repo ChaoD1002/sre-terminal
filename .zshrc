@@ -29,6 +29,7 @@ export EDITOR=vim
 
 [[ -f ~/.aliases ]] && source ~/.aliases
 [[ -f ~/.functions ]] && source ~/.functions
+detect_platform
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
