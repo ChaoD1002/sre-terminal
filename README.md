@@ -48,21 +48,15 @@
 
 ### 🍎 macOS
 
-1. 推荐使用 iTerm2（代替默认终端）
+1. 推荐使用 iTerm2（非必须）
 2. 安装 [Homebrew](https://brew.sh)：
 
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
 
-3. 安装依赖工具（自动安装也可）：
-
-   ```bash
-   brew install htop unzip z
-   ```
-
-4. 安装字体：MesloLGS NF（推荐配合 Powerlevel10k）
-5. 运行安装脚本：
+3. 安装字体：[MesloLGS NF](https://github.com/romkatv/powerlevel10k#manual-font-installation)
+4. 运行安装脚本：
 
    ```bash
    git clone https://github.com/ChaoD1002/sre-terminal.git
@@ -75,13 +69,7 @@
 
 1. 支持的发行版：Ubuntu / Debian / Arch / Manjaro 等
 2. 确保可联网运行 `apt` 或其他包管理器
-3. 安装基本工具（安装脚本会自动完成）：
-
-   ```bash
-   sudo apt update && sudo apt install -y git curl zsh vim locales unzip htop docker.io
-   ```
-
-4. 运行安装脚本：
+3. 运行安装脚本：
 
    ```bash
    git clone https://github.com/ChaoD1002/sre-terminal.git
@@ -95,8 +83,6 @@
 ```bash
 source ~/.zshrc
 ```
-
-若首次使用 Powerlevel10k，会自动启动配置向导。
 
 ---
 
@@ -148,14 +134,6 @@ platform_info  # 输出当前平台状态（CLI 工具）
 alias统一定义在 `.aliases` 中。
 函数统一定义在 `.functions.d/*.zsh` 中。
 支持模块化管理。
-
----
-
-## ☁️ 推荐搭配
-
-- iTerm2 + MesloLGS NF 字体（macOS）
-- Windows Terminal + Ubuntu-WSL（Windows）
-- GitHub + SSH + 自动化配置同步
 
 ---
 
