@@ -20,131 +20,154 @@ fi
 
 # install
 install_all() {
-	echo "开始安装SRE终端配置"
-	
-	# 🔁 初始化子模块（仅当为空）
-	if [ -f .gitmodules ]; then
-		if [[ -d ssh-setup && -z "$(ls -A ssh-setup 2>/dev/null)" ]]; then
-			echo "🔄 检测到 ssh-setup 子模块未初始化，正在拉取..."
-			git submodule update --init --recursive
-		else
-			echo "✅ ssh-setup 子模块已存在，跳过初始化"
-		fi
-	fi
+  echo "开始安装SRE终端配置"
 
-	# 安装基本工具for WSL & Linux
-	if [[ "$IS_WSL" == true || "IS_LINUX" == true ]]; then
-		sudo apt update
-		PKGS=(git curl zsh vim locales unzip htop docker.io z fzf zoxide tldr)
-		for pkg in "${PKGS[@]}"; do
-		  if ! dpkg -s "$pkg" &>/dev/null; then
-		    echo "🔧 安装 $pkg..."
-		    sudo apt install -y "$pkg"
-		  else
-		    echo "✅ 已安装 $pkg"
-		  fi
-		done
+  # 🔁 初始化子模块（仅当为空）
+  if [ -f .gitmodules ]; then
+    if [[ -d ssh-setup && -z "$(ls -A ssh-setup 2>/dev/null)" ]]; then
+      echo "🔄 检测到 ssh-setup 子模块未初始化，正在拉取..."
+      git submodule update --init --recursive
+    else
+      echo "✅ ssh-setup 子模块已存在，跳过初始化"
+    fi
+  fi
 
-		# locale 设置
-		echo "🌐 配置 locale..."
-		sudo locale-gen en_US.UTF-8
-		sudo update-locale LANG=en_US.UTF-8
-		export LANG="en_US.UTF-8"
-		export LANGUAGE="zh_CN:en_US"
-		export LC_ALL="en_US.UTF-8"
-	fi
+  # 安装基本工具 for WSL & Linux
+  if [[ "$IS_WSL" == true || "$IS_LINUX" == true ]]; then
+    sudo apt update
+    PKGS=(git curl zsh vim locales unzip htop docker.io z fzf zoxide tldr)
+    for pkg in "${PKGS[@]}"; do
+      if ! dpkg -s "$pkg" &>/dev/null; then
+        echo "🔧 安装 $pkg..."
+        sudo apt install -y "$pkg"
+      else
+        echo "✅ 已安装 $pkg"
+      fi
+    done
 
-	# 安装基本工具for Mac
-	if [[ "$IS_MAC" == true ]]; then
-		echo "🍎 检测到 macOS，检查 Homebrew..."
-		if ! command -v brew &>/dev/null; then
-			echo "⚠️ 未安装 Homebrew，请前往 https://brew.sh 手动安装后重试。"
-		else
-			echo "✅ Homebrew 已安装，检查必要工具..."
-			BREW_PKGS=(htop unzip z fzf zoxide tldr)
-			for pkg in "${BREW_PKGS[@]}"; do
-				if ! brew list "$pkg" &>/dev/null; then
-					echo "🔧 安装 $pkg..."
-					brew install "$pkg"
-				else
-					echo "✅ 已安装 $pkg"
-				fi
-			done
-		fi
-	fi
+    # locale 设置
+    echo "🌐 配置 locale..."
+    sudo locale-gen en_US.UTF-8
+    sudo update-locale LANG=en_US.UTF-8
+    export LANG="en_US.UTF-8"
+    export LANGUAGE="zh_CN:en_US"
+    export LC_ALL="en_US.UTF-8"
+  fi
 
-	# 安装 oh-my-zsh
-	if [ ! -d "$HOME/.oh-my-zsh" ]; then
-	  echo "🔧 安装 oh-my-zsh..."
-	  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-	fi
+  # 安装基本工具 for macOS
+  if [[ "$IS_MAC" == true ]]; then
+    echo "🍎 检测到 macOS，检查 Homebrew..."
+    if ! command -v brew &>/dev/null; then
+      echo "⚠️ 未安装 Homebrew，请前往 https://brew.sh 手动安装后重试。"
+    else
+      echo "✅ Homebrew 已安装，检查必要工具..."
+      BREW_PKGS=(htop unzip z fzf zoxide tldr)
+      for pkg in "${BREW_PKGS[@]}"; do
+        if ! brew list "$pkg" &>/dev/null; then
+          echo "🔧 安装 $pkg..."
+          brew install "$pkg"
+        else
+          echo "✅ 已安装 $pkg"
+        fi
+      done
+    fi
+  fi
 
-	# 安装 Powerlevel10k
-	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git   ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  # 安装 oh-my-zsh
+  if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo "🔧 安装 oh-my-zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  fi
 
-	# 安装插件
-	git clone https://github.com/zsh-users/zsh-autosuggestions   ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git   ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  # 安装 Powerlevel10k
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
-	# 🔐 初始化 SSH 身份配置（通过子模块 ssh-setup）
-	if [[ -d "$(pwd)/ssh-setup" ]]; then
- 		echo "🔐 检测到 ssh-setup 子模块，开始初始化 SSH 配置..."
-   		cd ssh-setup
+  # 安装插件
+  git clone https://github.com/zsh-users/zsh-autosuggestions \
+    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-  	if [[ ! -f ~/.ssh/id_ed25519 ]]; then
-   	 echo "📦 尚未检测到 SSH key，开始生成..."
-  	  bash generate-key.sh || echo "⚠️ SSH key 生成失败，请手动运行 ssh-keygen"
-	  else
-	    echo "✅ SSH key 已存在，跳过生成"
-	  fi
-	
-	  if [[ ! -f ~/.ssh/config && -f config.template ]]; then
- 	   cp config.template ~/.ssh/config
-	    echo "✅ 已部署 config.template → ~/.ssh/config"
-	  fi
-	
-	  cd - >/dev/null
-	else
-	  echo "⚠️ 未找到 ssh-setup 子模块，跳过 SSH 初始化"
-	fi
+  # 🔐 初始化 SSH 身份配置（通过子模块 ssh-setup）
+  if [[ -d "$(pwd)/ssh-setup" ]]; then
+    echo "🔐 检测到 ssh-setup 子模块，开始初始化 SSH 配置..."
+    cd ssh-setup
 
-	# 链接配置文件
-	echo "正在链接配置文件到本地home目录..."
-	for name in "${DOTFILES[@]}"; do
-		src="$(pwd)/.$name"
-		dest="$HOME/.$name"
+    if [[ ! -f ~/.ssh/id_ed25519 ]]; then
+      echo "📦 尚未检测到 SSH key，开始生成..."
+      bash generate-key.sh || echo "⚠️ SSH key 生成失败，请手动运行 ssh-keygen"
+    else
+      echo "✅ SSH key 已存在，跳过生成"
+    fi
 
-		if [[ -e "$dest" && ! -L "$dest" ]]; then
-			echo "检测到 $dest 存在，备份为 $dest.bak "
-			mv "$dest" "$dest.bak.$(date +%s)"
-		fi
+    if [[ ! -f ~/.ssh/config && -f config.template ]]; then
+      cp config.template ~/.ssh/config
+      echo "✅ 已部署 config.template → ~/.ssh/config"
+    fi
 
-		ln -sf "$src" "$dest"
-		echo "已链接: $dest 到 $src"
-	done
+    cd - >/dev/null
+  else
+    echo "⚠️ 未找到 ssh-setup 子模块，跳过 SSH 初始化"
+  fi
 
-	# 判断平台并生成本地配置文件
-	if [[ ! -f "$HOME/.zshrc.local" ]]; then
-	  echo "🛠 正在创建本地平台配置 (.zshrc.local)..."
-	  if [[ "$IS_WSL" == true ]]; then
-	    cp .zshrc.local.WSL ~/.zshrc.local
-	    echo "✅ 已应用 WSL 配置模板"
-	  elif [[ "$IS_MAC" == true ]]; then
-	    cp .zshrc.local.mac ~/.zshrc.local
-	    echo "✅ 已应用 macOS 配置模板"
-	  else
-	    cp .zshrc.local.example ~/.zshrc.local
-	    echo "✅ 已应用默认通用配置模板"
-	  fi
-	else
-	  echo "✅ 已存在 .zshrc.local，跳过生成"
-	fi
+  # 链接配置文件
+  echo "📎 正在链接配置文件到本地 home 目录..."
+  for name in "${DOTFILES[@]}"; do
+    src="$(pwd)/.$name"
+    dest="$HOME/.$name"
 
-	#Git使用SSH
-	echo "正在检查Git设置“
-	source .functions.d/git-ssh.zsh && git-ssh
-	echo "✅ 安装完成！请运行：source ~/.zshrc 或重启终端!
-"
+    if [[ -e "$dest" && ! -L "$dest" ]]; then
+      echo "📦 检测到 $dest 存在，备份为 $dest.bak"
+      mv "$dest" "$dest.bak.$(date +%s)"
+    fi
+
+    ln -sf "$src" "$dest"
+    echo "✅ 已链接: $dest → $src"
+  done
+
+  # 平台本地配置
+  if [[ ! -f "$HOME/.zshrc.local" ]]; then
+    echo "🛠 正在创建本地平台配置 (.zshrc.local)..."
+    if [[ "$IS_WSL" == true ]]; then
+      cp .zshrc.local.WSL ~/.zshrc.local
+      echo "✅ 已应用 WSL 配置模板"
+    elif [[ "$IS_MAC" == true ]]; then
+      cp .zshrc.local.mac ~/.zshrc.local
+      echo "✅ 已应用 macOS 配置模板"
+    else
+      cp .zshrc.local.example ~/.zshrc.local
+      echo "✅ 已应用默认通用配置模板"
+    fi
+  else
+    echo "✅ 已存在 .zshrc.local，跳过生成"
+  fi
+
+  # ✅ Git 使用 SSH 协议
+  if [[ -f .functions.d/git-ssh.zsh ]]; then
+    echo "🔍 正在检查 Git 是否使用 SSH 协议..."
+    source .functions.d/git-ssh.zsh && git-ssh
+  fi
+
+# ✅ 环境自动加载逻辑（含 shell 检测 + 自动切换 + 提示）
+if [[ "$SHELL" != *zsh ]]; then
+  if [[ -t 1 ]]; then
+    echo "✨ 当前 shell 为 $SHELL，自动切换至 zsh..."
+    exec zsh
+  else
+    echo "✅ 安装完成！⚠️ 当前 shell 非 zsh，请手动执行："
+    echo "👉 exec zsh && source ~/.zshrc"
+  fi
+else
+  if [[ -f "$HOME/.zshrc" ]]; then
+    echo "🔄 当前已是 zsh，自动加载配置中..."
+    source "$HOME/.zshrc"
+  fi
+  echo "✅ 安装完成！已自动应用配置 🎉"
+fi
+
+}
+
 # uninstall
 uninstall_all() {
   echo "🧹 开始卸载 dotfiles..."
@@ -168,7 +191,7 @@ uninstall_all() {
   echo "🗑 移除 ~/.zshrc.local"
   rm -f "$HOME/.zshrc.local"
 
-  echo "✅ 卸载完成！请手动执行cd..; rm -rf sre-terminal; done"
+  echo "✅ 卸载完成！建议手动执行以下命令：cd .. && rm -rf sre-terminal"
   exit 0
 }
 
