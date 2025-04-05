@@ -108,22 +108,6 @@ install_all() {
 	  echo "⚠️ 未找到 ssh-setup 子模块，跳过 SSH 初始化"
 	fi
 
-	# 配置SSH链接到Git仓库
-	if [[ -d "$(pwd)/ssh-setup" ]]; then
-		read "USE_SSH?💬 检测到 ssh-setup，是否执行 SSH 初始化？(y/N): "
-		if [[ "$USE_SSH" =~ ^[Yy]$ ]]; then
-			echo "🔐 开始执行 ssh-setup ..."
-			cd ssh-setup
-			bash generate-key.sh
-			[[ -f config.template && ! -f ~/.ssh/config ]] && cp config.template ~/.ssh/config
-			cd - >/dev/null
-		else
-			echo "🛑 已跳过 ssh-setup"
-		fi
-	else
-		echo "⚠️ ssh-setup 子模块不存在，未执行"
-	fi
-	
 	# 链接配置文件
 	echo "正在链接配置文件到本地home目录..."
 	for name in "${DOTFILES[@]}"; do
