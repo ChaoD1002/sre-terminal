@@ -61,7 +61,7 @@ install_all() {
 			echo "⚠️ 未安装 Homebrew，请前往 https://brew.sh 手动安装后重试。"
 		else
 			echo "✅ Homebrew 已安装，检查必要工具..."
-			BREW_PKGS=(htop unzip z fzf zoxidre tldr)
+			BREW_PKGS=(htop unzip z fzf zoxide tldr)
 			for pkg in "${BREW_PKGS[@]}"; do
 				if ! brew list "$pkg" &>/dev/null; then
 					echo "🔧 安装 $pkg..."
