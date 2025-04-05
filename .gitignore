@@ -21,6 +21,8 @@ id_rsa.pub
 
 # 🧰 忽略常见 IDE 和编辑器目录
 .vscode/
+!.vscode/settings.json
+!.vscode/extensions.json
 .idea/
 *.code-workspace
 
