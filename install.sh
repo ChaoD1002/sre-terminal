@@ -165,13 +165,7 @@ uninstall_all() {
   echo "🗑 移除 ~/.zshrc.local"
   rm -f "$HOME/.zshrc.local"
 
-  # 🧹 清理 ssh-setup 子模块（如果存在）
-  if [[ -d ssh-setup ]]; then
-	  echo "🗑 清理 ssh-setup 子模块目录"
-	  rm -rf ssh-setup
-  fi
-
-  echo "✅ 卸载完成！"
+  echo "✅ 卸载完成！请手动执行cd..; rm -rf sre-terminal; done"
   exit 0
 }
 
