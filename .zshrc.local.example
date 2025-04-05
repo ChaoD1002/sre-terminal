@@ -3,11 +3,23 @@
 # 请复制为 ~/.zshrc.local 并自行定制
 
 # 示例变量
-export EDITOR=nano
 export PATH="$HOME/sre-terminal/scripts:$PATH"
 
 # 示例 alias
 alias myip="curl ifconfig.me"
+
+# zoxide 初始化
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
+# fzf 初始化
+if [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
+  source /usr/share/doc/fzf/examples/key-bindings.zsh
+fi
+if [[ -f /usr/share/doc/fzf/examples/completion.zsh ]]; then
+  source /usr/share/doc/fzf/examples/completion.zsh
+fi
 
 # 标识加载
 echo "✅ .zshrc.local 已加载"

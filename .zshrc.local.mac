@@ -1,11 +1,24 @@
 # 🍎 macOS 专用本地配置
 
-export IS_MAC=true
-export EDITOR=vim
 export BROWSER="open"
 
 alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 
 export PATH="$HOME/sre-terminal/scripts:$PATH"
+
+# 设置 PATH（Homebrew 环境）
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+
+# fzf / zoxide / tldr 初始化
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
+if [[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]]; then
+  source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+fi
+if [[ -f /opt/homebrew/opt/fzf/shell/completion.zsh ]]; then
+  source /opt/homebrew/opt/fzf/shell/completion.zsh
+fi
 
 echo "✅ 已加载 macOS 本地配置 (.zshrc.local)"
