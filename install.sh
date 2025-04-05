@@ -10,7 +10,7 @@ echo "🚀 开始安装 SRE 终端配置..."
 DOTFILES=(zshrc aliases functions p10k.zsh)
 
 # 👉 平台判断
-if [[ -f "$(pwd)/.functions.d/platform.zsh" ]]; then
+if [[ -f "$(pwd)/.functions.d/detect_platform.zsh" ]]; then
 	source "$(pwd)/.functions.d/detect_platform.zsh"
 	detect_platform
 	echo "判断平台类型"
