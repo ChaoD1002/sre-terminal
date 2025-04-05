@@ -76,6 +76,27 @@ install_all() {
 	git clone https://github.com/zsh-users/zsh-autosuggestions   ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git   ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
+	# 🔐 初始化 SSH 身份配置（通过子模块 ssh-setup）
+	if [[ -d "$(pwd)/ssh-setup" ]]; then
+ 		echo "🔐 检测到 ssh-setup 子模块，开始初始化 SSH 配置..."
+   		cd ssh-setup
+
+  	if [[ ! -f ~/.ssh/id_ed25519 ]]; then
+   	 echo "📦 尚未检测到 SSH key，开始生成..."
+  	  bash generate-key.sh || echo "⚠️ SSH key 生成失败，请手动运行 ssh-keygen"
+	  else
+	    echo "✅ SSH key 已存在，跳过生成"
+	  fi
+	
+	  if [[ ! -f ~/.ssh/config && -f config.template ]]; then
+ 	   cp config.template ~/.ssh/config
+	    echo "✅ 已部署 config.template → ~/.ssh/config"
+	  fi
+	
+	  cd - >/dev/null
+	else
+	  echo "⚠️ 未找到 ssh-setup 子模块，跳过 SSH 初始化"
+	fi
 	# 链接配置文件
 	echo "正在链接配置文件到本地home目录..."
 	for name in "${DOTFILES[@]}"; do
