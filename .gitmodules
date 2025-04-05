@@ -1,3 +1,3 @@
 [submodule "ssh-setup"]
 	path = ssh-setup
-	url = git@github.com:ChaoD1002/ssh-setup.git
+	url = https://github.com/ChaoD1002/ssh-setup.git
