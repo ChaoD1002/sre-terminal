@@ -21,6 +21,16 @@ fi
 # install
 install_all() {
 	echo "开始安装SRE终端配置"
+	
+	# 🔁 初始化子模块（仅当为空）
+	if [ -f .gitmodules ]; then
+		if [[ -d ssh-setup && -z "$(ls -A ssh-setup 2>/dev/null)" ]]; then
+			echo "🔄 检测到 ssh-setup 子模块未初始化，正在拉取..."
+			git submodule update --init --recursive
+		else
+			echo "✅ ssh-setup 子模块已存在，跳过初始化"
+		fi
+	fi
 
 	# 安装基本工具for WSL & Linux
 	if [[ "$IS_WSL" == true || "IS_LINUX" == true ]]; then
@@ -76,6 +86,7 @@ install_all() {
 	git clone https://github.com/zsh-users/zsh-autosuggestions   ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git   ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
+<<<<<<< Updated upstream
 	# 🔐 初始化 SSH 身份配置（通过子模块 ssh-setup）
 	if [[ -d "$(pwd)/ssh-setup" ]]; then
  		echo "🔐 检测到 ssh-setup 子模块，开始初始化 SSH 配置..."
@@ -97,6 +108,24 @@ install_all() {
 	else
 	  echo "⚠️ 未找到 ssh-setup 子模块，跳过 SSH 初始化"
 	fi
+=======
+	# 配置SSH链接到Git仓库
+	if [[ -d "$(pwd)/ssh-setup" ]]; then
+		read "USE_SSH?💬 检测到 ssh-setup，是否执行 SSH 初始化？(y/N): "
+		if [[ "$USE_SSH" =~ ^[Yy]$ ]]; then
+			echo "🔐 开始执行 ssh-setup ..."
+			cd ssh-setup
+			bash generate-key.sh
+			[[ -f config.template && ! -f ~/.ssh/config ]] && cp config.template ~/.ssh/config
+			cd - >/dev/null
+		else
+			echo "🛑 已跳过 ssh-setup"
+		fi
+	else
+		echo "⚠️ ssh-setup 子模块不存在，未执行"
+	fi
+	
+>>>>>>> Stashed changes
 	# 链接配置文件
 	echo "正在链接配置文件到本地home目录..."
 	for name in "${DOTFILES[@]}"; do
@@ -153,6 +182,12 @@ uninstall_all() {
 
   echo "🗑 移除 ~/.zshrc.local"
   rm -f "$HOME/.zshrc.local"
+
+  # 🧹 清理 ssh-setup 子模块（如果存在）
+  if [[ -d ssh-setup ]]; then
+	  echo "🗑 清理 ssh-setup 子模块目录"
+	  rm -rf ssh-setup
+  fi
 
   echo "✅ 卸载完成！"
   exit 0
