@@ -86,7 +86,6 @@ install_all() {
 	git clone https://github.com/zsh-users/zsh-autosuggestions   ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git   ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-<<<<<<< Updated upstream
 	# 🔐 初始化 SSH 身份配置（通过子模块 ssh-setup）
 	if [[ -d "$(pwd)/ssh-setup" ]]; then
  		echo "🔐 检测到 ssh-setup 子模块，开始初始化 SSH 配置..."
@@ -109,8 +108,6 @@ install_all() {
 	  echo "⚠️ 未找到 ssh-setup 子模块，跳过 SSH 初始化"
 	fi
 
-=======
->>>>>>> Stashed changes
 	# 配置SSH链接到Git仓库
 	if [[ -d "$(pwd)/ssh-setup" ]]; then
 		read "USE_SSH?💬 检测到 ssh-setup，是否执行 SSH 初始化？(y/N): "
