@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "foxundermoon.shell-format",     // shell 脚本格式化
+    "timonwong.shellcheck",          // shell 语法检查
+    "ms-azuretools.vscode-docker",   // Docker 支持
+    "redhat.vscode-yaml",            // YAML 支持（如 docker-compose）
+    "ms-vscode-remote.remote-wsl",   // WSL 集成（如果你在用 WSL）
+    "esbenp.prettier-vscode",        // 通用格式化器
+    "usernamehw.errorlens"           // 错误提示更显眼
+  ]
+}

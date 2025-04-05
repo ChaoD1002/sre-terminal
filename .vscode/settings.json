@@ -1,0 +1,15 @@
+{
+  "files.eol": "\n",
+  "files.encoding": "utf8",
+  "editor.formatOnSave": false,
+  "editor.defaultFormatter": null,
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "editor.detectIndentation": false,
+  "[shellscript]": {
+    "editor.formatOnSave": false
+  },
+  "files.autoGuessEncoding": false
+}
+
