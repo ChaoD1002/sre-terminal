@@ -140,8 +140,11 @@ install_all() {
 	  echo "✅ 已存在 .zshrc.local，跳过生成"
 	fi
 
-	echo "✅ 安装完成！请运行：source ~/.zshrc 或重启终端"
-}
+	#Git使用SSH
+	echo "正在检查Git设置“
+	source .functions.d/git-ssh.zsh && git-ssh
+	echo "✅ 安装完成！请运行：source ~/.zshrc 或重启终端!
+"
 # uninstall
 uninstall_all() {
   echo "🧹 开始卸载 dotfiles..."
