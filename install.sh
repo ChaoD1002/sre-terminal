@@ -10,12 +10,12 @@ echo "🚀 开始安装 SRE 终端配置..."
 DOTFILES=(zshrc aliases functions p10k.zsh)
 
 # 👉 平台判断
-if [[ -f "$(pwd)/.functions.d/detect_platform.zsh" ]]; then
-	source "$(pwd)/.functions.d/detect_platform.zsh"
-	detect_platform
-	echo "判断平台类型"
+if [[ -f "./.functions.d/detect_platform.zsh" ]]; then
+  source "./.functions.d/detect_platform.zsh"
+  detect_platform
+  echo "✅ 平台标识符检测成功"
 else
-	echo "平台标识符不存在，将使用通用模板"
+  echo "⚠️ 平台标识符文件不存在，将使用通用模板"
 fi
 
 # install
@@ -115,7 +115,7 @@ install_all() {
 		dest="$HOME/.$name"
 
 		if [[ -e "$dest" && ! -L "$dest" ]]; then
-			echo "检测到$dest存在，备份为$dest.bak"
+			echo "检测到 $dest 存在，备份为 $dest.bak "
 			mv "$dest" "$dest.bak.$(date +%s)"
 		fi
 
