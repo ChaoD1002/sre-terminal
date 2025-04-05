@@ -308,8 +308,11 @@ uninstall_all() {
   rm -f "$HOME/.zshrc.local"
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   echo "✅ 卸载完成！建议手动执行：cd .. && rm -rf sre-terminal"
 =======
+=======
+>>>>>>> Stashed changes
   # 🧹 清理 ssh-setup 子模块（如果存在）
   if [[ -d ssh-setup ]]; then
 	  echo "🗑 清理 ssh-setup 子模块目录"
