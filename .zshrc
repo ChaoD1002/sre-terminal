@@ -26,7 +26,8 @@ export LANG="en_US.UTF-8"
 export LANGUAGE="zh_CN:en_US"
 export LC_ALL="en_US.UTF-8"
 export EDITOR=vim
-[[ ! -f ~.p10k.zsh ]] || source ~./p10k.zsh
+
+[[ -f "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
 [[ -f ~/.aliases ]] && source ~/.aliases
 [[ -f ~/.functions ]] && source ~/.functions
 detect_platform
