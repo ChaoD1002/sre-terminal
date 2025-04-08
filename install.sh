@@ -39,7 +39,7 @@ install_all() {
     for pkg in "${PKGS[@]}"; do
       if ! dpkg -s "$pkg" &>/dev/null; then
         echo "🔧 安装 $pkg..."
-        sudo apt install -y "$pkg"
+        sudo apt install -y "$pkg" || echo "⚠️ 无法安装 $pkg，跳过"
       else
         echo "✅ 已安装 $pkg"
       fi
