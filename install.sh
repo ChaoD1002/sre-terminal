@@ -149,7 +149,7 @@ install_all() {
   fi
 
   # ✅ 环境自动加载逻辑（含 shell 检测 + 自动切换 + 提示）
-  if [[ "$SHELL" != *zsh ]]; then
+  if [[ "$(ps -p $$ -o comm=)" != "zsh" ]]; then
     if [[ -t 1 ]]; then
       echo "✨ 当前 shell 为 $SHELL，自动切换至 zsh..."
       exec zsh
