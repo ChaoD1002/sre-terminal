@@ -20,6 +20,3 @@ fi
 if [[ -f /usr/share/doc/fzf/examples/completion.zsh ]]; then
   source /usr/share/doc/fzf/examples/completion.zsh
 fi
-
-# 标识加载
-echo "✅ .zshrc.local 已加载"

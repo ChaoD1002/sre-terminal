@@ -20,5 +20,3 @@ fi
 if [[ -f /opt/homebrew/opt/fzf/shell/completion.zsh ]]; then
   source /opt/homebrew/opt/fzf/shell/completion.zsh
 fi
-
-echo "✅ 已加载 macOS 本地配置 (.zshrc.local)"

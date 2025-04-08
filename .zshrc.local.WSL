@@ -22,5 +22,3 @@ if [[ -f /usr/share/doc/fzf/examples/completion.zsh ]]; then
 fi
 
 # tldr 无需初始化，仅首次运行 tldr --update 即可
-
-echo "✅ 已加载 WSL 本地配置 (.zshrc.local)"
