@@ -7,10 +7,11 @@ echo "🧭 当前模式：$MODE"
 echo "🚀 开始安装 SRE 终端配置..."
 
 # 👉 需要管理的 dotfiles 文件名（无需加点）
-DOTFILES=(zshrc aliases functions p10k.zsh)
+DOTFILES=(zshrc aliases functions p10k.zsh) # List of dotfiles to be managed (without the leading dot)
 
 # 👉 平台判断
 if [[ -f "./.functions.d/detect_platform.zsh" ]]; then
+  # shellcheck disable=SC1091
   source "./.functions.d/detect_platform.zsh"
   detect_platform
   echo "✅ 平台标识符检测成功"
@@ -80,13 +81,13 @@ install_all() {
 
   # 安装 Powerlevel10k
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
-    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
 
   # 安装插件
   git clone https://github.com/zsh-users/zsh-autosuggestions \
-    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
 
   # 🔐 初始化 SSH 身份配置（通过子模块 ssh-setup）
   if [[ -d "$(pwd)/ssh-setup" ]]; then
@@ -95,7 +96,11 @@ install_all() {
 
     if [[ ! -f ~/.ssh/id_ed25519 ]]; then
       echo "📦 尚未检测到 SSH key，开始生成..."
-      bash generate-key.sh || echo "⚠️ SSH key 生成失败，请手动运行 ssh-keygen"
+      if [[ -f generate-key.sh ]]; then
+        bash generate-key.sh || echo "⚠️ SSH key 生成失败，请手动运行 ssh-keygen"
+      else
+        echo "⚠️ 未找到 generate-key.sh 文件，请确保其存在于 ssh-setup 目录中"
+      fi
     else
       echo "✅ SSH key 已存在，跳过生成"
     fi
@@ -145,6 +150,7 @@ install_all() {
   # ✅ Git 使用 SSH 协议
   if [[ -f .functions.d/git-ssh.zsh ]]; then
     echo "🔍 正在检查 Git 是否使用 SSH 协议..."
+    # shellcheck disable=SC1091
     source .functions.d/git-ssh.zsh && git-ssh
   fi
 
@@ -160,6 +166,7 @@ install_all() {
   else
     if [[ -f "$HOME/.zshrc" ]]; then
       echo "🔄 当前已是 zsh，自动加载配置中..."
+      # shellcheck disable=SC1091
       source "$HOME/.zshrc"
     fi
     echo "✅ 安装完成！已自动应用配置 🎉"
