@@ -25,7 +25,7 @@ source $ZSH/oh-my-zsh.sh
 export LANG="en_US.UTF-8"
 export LANGUAGE="zh_CN:en_US"
 export LC_ALL="en_US.UTF-8"
-export EDITOR=vim
+export EDITOR=code
 
 [[ -f "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
 [[ -f ~/.aliases ]] && source ~/.aliases
